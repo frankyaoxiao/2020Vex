@@ -2,10 +2,10 @@
 
 
 pros::Controller master(pros::E_CONTROLLER_MASTER);
-pros::Motor left_mtr(1);
-pros::Motor right_mtr(2, false);
-pros::Motor backleft_mtr(3);
-pros::Motor backright_mtr(4, false);
+pros::Motor LeftFrontMotor(1);
+pros::Motor RightFrontMotor(2, false);
+pros::Motor LeftBackMotor(3);
+pros::Motor RightBackMotor(4, false);
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -61,18 +61,21 @@ void autonomous() {}
  */
 void opcontrol() {
 
-	int left, right;
+
 
 	while (true) {
-		left = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) * 200.0 / 126.0;
-		right = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y) * 200.0 / 126.0;
 
-		left_mtr.move_velocity(left);
-		right_mtr.move_velocity(right);
-		backleft_mtr.move_velocity(left);
-		backright_mtr.move_velocity(right);
-		
 
+		int LF = master.get_analog(ANALOG_LEFT_X) + master.get_analog(ANALOG_LEFT_Y) + master.get_analog(ANALOG_RIGHT_Y);
+		int RF = master.get_analog(ANALOG_LEFT_X) - master.get_analog(ANALOG_LEFT_Y) - master.get_analog(ANALOG_RIGHT_Y);
+		int LB = master.get_analog(ANALOG_LEFT_X) - master.get_analog(ANALOG_LEFT_Y) + master.get_analog(ANALOG_RIGHT_Y);
+		int RB = master.get_analog(ANALOG_LEFT_X) + master.get_analog(ANALOG_LEFT_Y) - master.get_analog(ANALOG_RIGHT_Y);
+
+		LeftFrontMotor.move(LF);
+		RightFrontMotor.move(RF);
+		LeftBackMotor.move(LB);
+		RightBackMotor.move(RB);
 		pros::delay(2);
+
 	}
 }

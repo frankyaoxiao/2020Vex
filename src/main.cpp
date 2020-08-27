@@ -3,9 +3,9 @@
 
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Motor LeftFrontMotor(1);
-pros::Motor RightFrontMotor(2, false);
+pros::Motor RightFrontMotor(2);
 pros::Motor LeftBackMotor(3);
-pros::Motor RightBackMotor(4, false);
+pros::Motor RightBackMotor(4);
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
